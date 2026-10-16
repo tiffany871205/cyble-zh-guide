@@ -2,6 +2,7 @@ const DEMO_BASE='https://tiffany871205.github.io/cyble-executive-insights-zh/';
 
 const pages={
   home:{group:'開始使用',title:'Cyble Vision 繁體中文導覽',en:'Home',route:'',summary:'用功能情境快速理解 Cyble Vision 的各個模組，並可直接跳到互動 Demo 對照實際介面。'},
+  glossary:{group:'開始使用',title:'專有名詞總表',en:'Glossary',route:'',summary:'集中查找 Cyble 各模組常見的資安、介面與產品專有名詞。'},
 
   'executive-insights':{group:'Dashboard',title:'高階管理洞察',en:'Executive Insights',route:'?page=executive&tab=overview',summary:'以管理層視角快速掌握整體威脅態勢、風險趨勢與重點事件。',points:['總覽整體風險與重要警示','切換威脅態勢與高階視角','適合簡報、例行會議與管理層摘要']},
   'alerts-insights':{group:'Dashboard',title:'警示洞察',en:'Alerts Insights',route:'?page=alerts&tab=attack',summary:'從不同資安領域彙整警示量、嚴重度、狀態與待處理事件。',points:['攻擊面、暗網、品牌、漏洞等分類','Severity Distribution 與待處理警示','快速判斷哪一類風險需要優先處理']},
@@ -446,6 +447,138 @@ const pageTerms={
   'application-settings':[['Visual Mode','視覺模式','控制系統介面的顏色主題，例如 Dark、Light、Midnight。'],['Cookie','Cookie','網站儲存在瀏覽器中的小型資料，用於登入、偏好、分析等用途。'],['Strictly Necessary','必要 Cookie','網站正常運作與安全所需、通常無法停用的 Cookie。'],['Analytics Cookie','分析 Cookie','用來了解使用方式與效能、協助改善產品的 Cookie。']]
 };
 
+const pageUiFields={
+  'vulnerability-intelligence':[
+    ['My Org\'s Exposure','我的組織曝險','優先查看與自身產品或環境相關的弱點。'],
+    ['All Vulnerabilities','所有弱點','查看平台收錄的更廣泛 CVE 情報。'],
+    ['My Products','我的產品','維護企業實際使用的 Vendor、Product、Version 與 Criticality。'],
+    ['Curated Intelligence','精選情資','閱讀與弱點相關的新聞、公告與研究內容。'],
+    ['CVSS / EPSS','嚴重度／利用可能性','CVSS 看技術嚴重度，EPSS 補充近期遭利用的可能性。'],
+    ['CISA KEV','已知遭利用弱點','用來判斷該 CVE 是否已有實際利用紀錄。']
+  ],
+  'configurations-hub':[
+    ['Keywords','關鍵字','設定品牌名、公司名或其他要持續監控的字詞。'],
+    ['Buckets','分類容器','將不同 Keywords 依品牌、子公司或用途分組。'],
+    ['Executives','高階主管','建立要進行數位身分監控的人物資料。'],
+    ['Assets','企業資產','維護 Logos、Favicons、Employee Information、Code Repositories 等。'],
+    ['Products','產品清單','維護企業使用的產品與版本，供弱點情資對照。'],
+    ['ASM Assets','攻擊面資產','查看 Connectors、Discovered Assets 與 Suppression Rules。']
+  ],
+  'executive-monitoring':[
+    ['Overview','總覽','快速查看主管監控整體狀態與 Findings。'],
+    ['Executives','主管清單','查看已納入監控的人員與 Profile Readiness。'],
+    ['Findings','發現事項','查看疑似冒用或其他與人物身分相關的可疑結果。'],
+    ['Add Executive','新增主管','新增姓名、圖片、聯絡方式、地址與社群帳號等資料。'],
+    ['Profile Readiness','資料完整度','提示人物資料是否足夠完整以支援後續監控。']
+  ],
+  'asset-inventory':[
+    ['Asset','資產','平台認為與企業相關的 Domain、IP、Host 或 Cloud 資產。'],
+    ['Asset Type','資產類型','用來區分 Domain、IP、Host、Cloud 等不同型態。'],
+    ['Search / Filters','搜尋／篩選','依名稱、類型、狀態或其他欄位縮小資產清單。'],
+    ['Asset Detail','資產詳情','查看單一資產的服務、DNS、憑證與相關 Issue。']
+  ],
+  'issue-catalog':[
+    ['Severity','嚴重度','依 Critical、High、Medium、Low 等級協助排序。'],
+    ['First Seen','首次發現','平台第一次觀察到問題的時間。'],
+    ['Last Seen','最近發現','最近一次仍觀察到問題的時間。'],
+    ['Affected Asset','受影響資產','實際出現該 Issue 的外部資產。'],
+    ['Status','狀態','表示問題目前是否待確認、處理中或已解決。']
+  ],
+  'malicious-domains':[
+    ['Domain Finding','網域發現','疑似仿冒、釣魚或品牌濫用的網域結果。'],
+    ['Similarity','相似度','表示網域名稱或內容與品牌的相似程度。'],
+    ['Status','狀態','用來區分未檢視、已確認、誤判或處理中。'],
+    ['Takedown','下架','將確認惡意的網域送入下架處理流程。']
+  ],
+  'third-party-risk':[
+    ['Vendor / Company','供應商／公司','被納入第三方風險管理的外部組織。'],
+    ['Risk Signals','風險訊號','從外部攻擊面、外洩與威脅情報觀察到的風險線索。'],
+    ['Reports','報告','將供應商風險整理成可檢閱與分享的內容。'],
+    ['Follow-up','後續追蹤','用來管理供應商回覆、改善、例外與風險接受。']
+  ],
+  'user-management':[
+    ['Role','角色','決定使用者可以執行哪些操作的權限集合。'],
+    ['Services','服務','決定使用者可以看到或使用哪些 Cyble 模組。'],
+    ['EULA Accepted','已接受 EULA','顯示使用者是否已接受終端使用者授權協議。'],
+    ['Last Login','最後登入','顯示使用者最近一次登入平台的時間。'],
+    ['Add User','新增使用者','建立新使用者並指派角色、聯絡資訊與服務權限。']
+  ],
+  'company-management':[
+    ['Company Profile','公司資料','查看公司基本資料、授權、服務與資產使用量。'],
+    ['Child Companies','子公司','查看與管理公司階層底下的子公司。'],
+    ['Asset Utilization','資產使用量','顯示 Keywords、Seats、Reports 等授權額度使用情況。'],
+    ['One Wallet','共用點數錢包','集中顯示可用點數與本月使用量。'],
+    ['SSO Configurations','SSO 設定','管理單一登入相關設定。']
+  ],
+  'alert-settings':[
+    ['Severity Management','嚴重度管理','設定各服務產生警示時的預設 Severity。'],
+    ['Cyble Recommended','Cyble 建議值','平台建議的預設嚴重度設定。'],
+    ['Custom Setting','自訂設定','由管理者自行調整 LOW、MEDIUM、HIGH。'],
+    ['Paused Alerts','已暫停警示','查看哪些 Domain / Subdomain 的警示已被暫停。']
+  ],
+  'notification-settings':[
+    ['Frequency','通知頻率','決定通知即時傳送或每隔固定時間彙整。'],
+    ['Recipients','收件者','指定哪些使用者會收到通知。'],
+    ['Statuses','狀態','只針對特定 Alert Status 傳送通知。'],
+    ['Notification Channel','通知管道','Email、Slack、WhatsApp、SMS 等傳送方式。'],
+    ['Add Notification','新增通知','建立新的通知規則。']
+  ],
+  'application-settings':[
+    ['Application Visual Mode','應用程式視覺模式','切換 System、Dark、Light、Midnight、Sepia 等主題。'],
+    ['Language','語言','設定介面的顯示語言。'],
+    ['Cookie Preferences','Cookie 偏好','管理 Preference、Analytics、Advertising 等 Cookie。'],
+    ['Privacy Notice','隱私權聲明','查看平台如何處理與保護使用者資料。'],
+    ['About','關於','查看目前產品版本、Build 與建置日期。']
+  ]
+};
+
+const groupMisreads={
+  'Dashboard':['數字變高不一定代表風險真的惡化，也可能是監控範圍或期間改變。','Finding 或 Alert 不等於已確認事件，仍需進一步驗證。'],
+  'Threat Intelligence':['情報來源提到某個 Domain / IP，不代表它永遠都是惡意，仍要看時間與上下文。','Threat Actor 的別名很多，不同研究來源可能使用不同名稱。'],
+  'Dark Web & Cybercrime':['Dark Web 與 Deep Web 不是同義詞；Deep Web 本身不代表犯罪。','帳密出現在 Stealer Log 不代表目前仍可登入，仍需看時間與帳號狀態。'],
+  'Attack Surface':['Discovered Asset 不代表一定是企業正式資產，先確認 Ownership。','Severity 高不一定代表第一優先，還要看資產重要性與實際曝險。'],
+  'Brand Intelligence':['相似網域不等於惡意網域，可能是合作夥伴、活動站或合法註冊。','已送出 Takedown 不等於已經下架，仍要追蹤最終狀態。'],
+  'Executive Monitoring':['Finding 不代表真的有人冒用主管身分，仍需人工確認。','Profile Readiness 是資料完整度，不是人物風險分數。'],
+  'Third Party Risk':['單一外部風險分數不能代表供應商整體風險。','供應商有高風險訊號，不代表一定已經發生資安事件。'],
+  'Vulnerability Intelligence':['CVSS 高不代表一定正在被利用，也不代表一定影響你的環境。','沒有出現在 CISA KEV 不代表安全，只代表尚未被列入該清單。'],
+  'Utilities':['報告中的資料通常受當下篩選範圍與權限影響。','API 可讀到什麼資料，仍取決於 Token、Role 與授權範圍。'],
+  'Control Panel':['更改設定可能影響其他使用者或後續警示結果，操作前先確認作用範圍。','停用通知不代表停用偵測；兩者通常是不同層級的設定。']
+};
+
+const pageMisreads={
+  'vulnerability-intelligence':['My Org\'s Exposure 是用來聚焦自身相關弱點，不代表平台只收錄這些 CVE。','EPSS 是機率預測，不是「被攻擊的百分比保證」。'],
+  'configurations-hub':['Keyword 跟 Asset 不一樣：Keyword 是監控字詞，Asset 是實際數位資產。','沒有偵測結果，有時是因為監控對象或產品資料尚未設定完整。'],
+  'notification-settings':['通知規則只控制「怎麼收到提醒」，不是改變 Alert 本身的 Severity。','Status Filter 會影響哪些警示被通知，但不會刪除其他警示。'],
+  'alert-settings':['Paused Alert 是暫停，不是刪除 Domain 或既有警示。','Custom Setting 改的是預設 Severity，不代表所有既有警示都會被重新分級。'],
+  'company-management':['Asset Utilization 顯示的是授權／額度使用狀況，不等於企業實際資產總數。','Child Company 是管理結構，不等於法律上的公司關係一定完全相同。']
+};
+
+function uiFieldsHtml(slug){
+  const rows=pageUiFields[slug]||[];
+  if(!rows.length)return '';
+  return `<h2>介面欄位／按鈕對照表</h2><div class="doc-table ui-fields-table"><table><thead><tr><th>介面文字</th><th>建議中文</th><th>功能／判讀</th></tr></thead><tbody>${rows.map(row=>`<tr><td><strong>${row[0]}</strong></td><td>${row[1]}</td><td>${row[2]}</td></tr>`).join('')}</tbody></table></div>`
+}
+
+function misreadsHtml(slug,p){
+  const rows=[...(pageMisreads[slug]||[]),...(groupMisreads[p.group]||[])].slice(0,4);
+  if(!rows.length)return '';
+  return `<h2>容易誤判的地方</h2><div class="misread-list">${rows.map(x=>`<div><span>!</span><p>${x}</p></div>`).join('')}</div>`
+}
+
+function buildGlossaryRows(){
+  const map=new Map();
+  const add=(row,source)=>{const key=row[0].toLowerCase();if(!map.has(key))map.set(key,{en:row[0],zh:row[1],desc:row[2],sources:new Set()});map.get(key).sources.add(source)};
+  Object.entries(groupTerms).forEach(([group,rows])=>rows.forEach(row=>add(row,group)));
+  Object.entries(pageTerms).forEach(([slug,rows])=>rows.forEach(row=>add(row,pages[slug]?.title||slug)));
+  Object.entries(deepGuides).forEach(([slug,g])=>(g.concepts||[]).forEach(row=>add([row[0],row[0],row[1]],pages[slug]?.title||slug)));
+  return [...map.values()].sort((a,b)=>a.en.localeCompare(b.en,'en'))
+}
+
+function glossaryHtml(){
+  const rows=buildGlossaryRows();
+  return `<article class="doc glossary-page"><div class="eyebrow">LEARNING RESOURCE</div><h1>Cyble 專有名詞總表</h1><p class="lead">集中整理導覽站各頁出現的資安與產品名詞。可直接搜尋英文、中文、解釋或會出現的模組。</p><label class="glossary-search">⌕ <input id="glossarySearch" type="search" placeholder="搜尋 CVSS、IoC、Takedown、Cookie..."></label><div class="glossary-count"><b id="glossaryCount">${rows.length}</b> 個名詞</div><div class="doc-table glossary-table"><table><thead><tr><th>英文</th><th>建議中文</th><th>白話解釋</th><th>常見位置</th></tr></thead><tbody>${rows.map(row=>`<tr data-glossary-row><td><strong>${row.en}</strong></td><td>${row.zh}</td><td>${row.desc}</td><td>${[...row.sources].slice(0,4).join('、')}</td></tr>`).join('')}</tbody></table></div></article>`
+}
+
 function getTerms(slug,p){
   const rows=[...(pageTerms[slug]||[]),...(deepGuides[slug]?.concepts||[]).map(x=>[x[0],x[0],x[1]]),...(groupTerms[p.group]||[])];
   const seen=new Set();
@@ -490,7 +623,7 @@ function syncActive(){const slug=slugFromHash();document.querySelectorAll('.nav-
 
 function homeHtml(){
   const featured=['vulnerability-intelligence','executive-monitoring','configurations-hub','third-party-risk','asset-inventory','notification-settings'];
-  return `<article class="doc"><div class="eyebrow">CYBLE VISION GUIDE</div><h1>Cyble Vision 繁體中文導覽</h1><p class="lead">這是一份配合互動 Demo 使用的中文導覽。你可以先在這裡理解各功能的用途，再直接開啟對應的 Cyble 模擬畫面操作。</p><div class="callout notice-green">建議使用方式：<b>先看「這頁是做什麼」→ 再看「操作重點」→ 最後點「開啟互動 Demo」實際操作。</b></div><h2>從哪裡開始？</h2><div class="journey"><button class="journey-item" data-jump="executive-insights"><b>01</b><span><strong>先看整體風險</strong><small>從 Executive Insights 與 Alerts Insights 了解平台如何彙整資訊。</small></span></button><button class="journey-item" data-jump="attack-surface-dashboard"><b>02</b><span><strong>理解外部攻擊面</strong><small>查看資產、Issue Catalog、SSL/TLS 與 Cloud Connectors。</small></span></button><button class="journey-item" data-jump="vulnerability-intelligence"><b>03</b><span><strong>查看弱點情資</strong><small>從 CVE、Zero-Day、EPSS 到 My Products 建立弱點處理脈絡。</small></span></button><button class="journey-item" data-jump="configurations-hub"><b>04</b><span><strong>最後看平台設定</strong><small>理解 Keywords、Assets、Users、Notifications 與 Control Panel。</small></span></button></div>${termsHtml('home',pages.home)}<h2>常用功能</h2><div class="feature-grid">${featured.map(slug=>{const p=pages[slug];return `<button class="feature-card" data-jump="${slug}"><strong>${p.title}</strong><small>${p.en}</small><p>${p.summary}</p></button>`}).join('')}</div><h2>完整功能分類</h2><div class="guide-cards">${groupOrder.filter(g=>g!=='開始使用').map(group=>{const count=Object.values(pages).filter(p=>p.group===group).length;return `<div class="guide-card"><strong>${group}</strong><small>${count} 個導覽頁</small><p>${groupDescription(group)}</p></div>`}).join('')}</div></article>`
+  return `<article class="doc"><div class="eyebrow">CYBLE VISION GUIDE</div><h1>Cyble Vision 繁體中文導覽</h1><p class="lead">這是一份配合互動 Demo 使用的中文導覽。你可以先在這裡理解各功能的用途，再直接開啟對應的 Cyble 模擬畫面操作。</p><div class="callout notice-green">建議使用方式：<b>先看「這頁是做什麼」→ 再看「操作重點」→ 最後點「開啟互動 Demo」實際操作。</b></div><h2>從哪裡開始？</h2><div class="journey"><button class="journey-item" data-jump="executive-insights"><b>01</b><span><strong>先看整體風險</strong><small>從 Executive Insights 與 Alerts Insights 了解平台如何彙整資訊。</small></span></button><button class="journey-item" data-jump="attack-surface-dashboard"><b>02</b><span><strong>理解外部攻擊面</strong><small>查看資產、Issue Catalog、SSL/TLS 與 Cloud Connectors。</small></span></button><button class="journey-item" data-jump="vulnerability-intelligence"><b>03</b><span><strong>查看弱點情資</strong><small>從 CVE、Zero-Day、EPSS 到 My Products 建立弱點處理脈絡。</small></span></button><button class="journey-item" data-jump="configurations-hub"><b>04</b><span><strong>最後看平台設定</strong><small>理解 Keywords、Assets、Users、Notifications 與 Control Panel。</small></span></button></div>${termsHtml('home',pages.home)}<div class="callout glossary-callout"><b>查名詞不知道去哪裡？</b><br>可以直接使用「專有名詞總表」，一次搜尋 CVSS、IoC、Takedown、Punycode、One Wallet 等名詞。<br><button class="text-link" data-jump="glossary">開啟專有名詞總表 →</button></div><h2>常用功能</h2><div class="feature-grid">${featured.map(slug=>{const p=pages[slug];return `<button class="feature-card" data-jump="${slug}"><strong>${p.title}</strong><small>${p.en}</small><p>${p.summary}</p></button>`}).join('')}</div><h2>完整功能分類</h2><div class="guide-cards">${groupOrder.filter(g=>g!=='開始使用').map(group=>{const count=Object.values(pages).filter(p=>p.group===group).length;return `<div class="guide-card"><strong>${group}</strong><small>${count} 個導覽頁</small><p>${groupDescription(group)}</p></div>`}).join('')}</div></article>`
 }
 
 function groupDescription(group){return ({'Dashboard':'管理層與營運視角的摘要頁面。','Threat Intelligence':'威脅行為者、惡意軟體、IoC 與資安研究。','Dark Web & Cybercrime':'暗網、犯罪論壇、外洩與遭入侵資料。','Attack Surface':'資產探索、曝險、弱點與技術設定。','Brand Intelligence':'仿冒網域、社群、網站與下架追蹤。','Executive Monitoring':'高階主管身分與冒用風險監控。','Third Party Risk':'第三方供應商風險與報告。','Vulnerability Intelligence':'CVE、Zero-Day、EPSS、KEV 與產品弱點。','Utilities':'報告、狀態追蹤、API 與 Integrations。','Control Panel':'使用者、公司、警示、通知與應用程式設定。'}[group]||'')}
@@ -498,7 +631,7 @@ function groupDescription(group){return ({'Dashboard':'管理層與營運視角�
 function detailHtml(slug,p){
   const points=p.points||defaultPoints(p);
   const related=Object.entries(pages).filter(([s,x])=>s!==slug&&x.group===p.group).slice(0,4);
-  return `<article class="doc"><button class="back-link" data-jump="home">← 返回首頁</button><div class="page-head"><div><div class="eyebrow">${p.group.toUpperCase()}</div><h1>${p.title}</h1><p class="lead">${p.en}｜${p.summary}</p></div><div class="page-actions"><a class="demo-btn" href="${pageUrl(p)}" target="_blank" rel="noreferrer">開啟互動 Demo ↗</a></div></div><div class="callout">這個導覽站不取代原平台，而是用來快速理解功能位置、用途與操作順序。需要確認實際互動時，請直接搭配右上角的 Demo 使用。</div><h2>這頁是做什麼？</h2><p>${p.summary}</p><h2>操作重點</h2><ol class="steps">${points.map((x,i)=>`<li><span class="number">${i+1}</span><span>${x}</span></li>`).join('')}</ol>${termsHtml(slug,p)}${deepGuideHtml(slug)}<h2>建議你注意</h2><div class="term"><strong>英文名稱</strong><span>${p.en}</span></div><div class="term"><strong>所在分類</strong><span>${p.group}</span></div><div class="term"><strong>適合用在</strong><span>${useCase(p.group)}</span></div><div class="term"><strong>實際操作</strong><span><a class="text-link" href="${pageUrl(p)}" target="_blank" rel="noreferrer">前往此功能的互動 Demo ↗</a></span></div>${related.length?`<h2>同分類功能</h2><div class="feature-grid">${related.map(([s,x])=>`<button class="feature-card" data-jump="${s}"><strong>${x.title}</strong><small>${x.en}</small><p>${x.summary}</p></button>`).join('')}</div>`:''}</article>`
+  return `<article class="doc"><button class="back-link" data-jump="home">← 返回首頁</button><div class="page-head"><div><div class="eyebrow">${p.group.toUpperCase()}</div><h1>${p.title}</h1><p class="lead">${p.en}｜${p.summary}</p></div><div class="page-actions"><a class="demo-btn" href="${pageUrl(p)}" target="_blank" rel="noreferrer">開啟互動 Demo ↗</a></div></div><div class="callout">這個導覽站不取代原平台，而是用來快速理解功能位置、用途與操作順序。需要確認實際互動時，請直接搭配右上角的 Demo 使用。</div><h2>這頁是做什麼？</h2><p>${p.summary}</p><h2>操作重點</h2><ol class="steps">${points.map((x,i)=>`<li><span class="number">${i+1}</span><span>${x}</span></li>`).join('')}</ol>${uiFieldsHtml(slug)}${termsHtml(slug,p)}${misreadsHtml(slug,p)}${deepGuideHtml(slug)}<h2>建議你注意</h2><div class="term"><strong>英文名稱</strong><span>${p.en}</span></div><div class="term"><strong>所在分類</strong><span>${p.group}</span></div><div class="term"><strong>適合用在</strong><span>${useCase(p.group)}</span></div><div class="term"><strong>實際操作</strong><span><a class="text-link" href="${pageUrl(p)}" target="_blank" rel="noreferrer">前往此功能的互動 Demo ↗</a></span></div>${related.length?`<h2>同分類功能</h2><div class="feature-grid">${related.map(([s,x])=>`<button class="feature-card" data-jump="${s}"><strong>${x.title}</strong><small>${x.en}</small><p>${x.summary}</p></button>`).join('')}</div>`:''}</article>`
 }
 
 function deepGuideHtml(slug){
@@ -512,11 +645,13 @@ function useCase(group){return ({'Dashboard':'例行簡報、風險摘要、管�
 
 function render(){
   const slug=slugFromHash();const p=pages[slug]||pages.home;
-  main.innerHTML=slug==='home'||!pages[slug]?homeHtml():detailHtml(slug,p);
+  main.innerHTML=slug==='home'||!pages[slug]?homeHtml():slug==='glossary'?glossaryHtml():detailHtml(slug,p);
   crumb.textContent=slug==='home'?'首頁':`${p.group} / ${p.title}`;
   document.title=`${p.title}｜Cyble 中文導覽`;
   syncActive();
   main.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.jump}));
+  const glossarySearch=main.querySelector('#glossarySearch');
+  glossarySearch?.addEventListener('input',()=>{const q=glossarySearch.value.trim().toLowerCase();let visible=0;main.querySelectorAll('[data-glossary-row]').forEach(row=>{const show=!q||row.textContent.toLowerCase().includes(q);row.hidden=!show;if(show)visible++});const count=main.querySelector('#glossaryCount');if(count)count.textContent=visible});
   main.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
   if(innerWidth<=700){sidebar.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}
 }
