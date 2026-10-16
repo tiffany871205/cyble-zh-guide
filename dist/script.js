@@ -66,6 +66,91 @@ const pages={
 };
 
 const groupOrder=['開始使用','Dashboard','Threat Intelligence','Dark Web & Cybercrime','Attack Surface','Brand Intelligence','Executive Monitoring','Third Party Risk','Vulnerability Intelligence','Utilities','Control Panel'];
+const deepGuides={
+  'vulnerability-intelligence':{
+    intro:'這個模組的核心不是只「看 CVE」，而是把弱點情報、組織曝險、產品清單與外部情資放在同一個工作流程裡。實務上可以先從「跟我有沒有關」開始，再決定修補優先順序。',
+    sections:[
+      ["My Org's Exposure",'聚焦與自身環境、產品或資產相關的弱點，適合先確認「哪些 CVE 真的可能影響我」。'],
+      ['All Vulnerabilities','查看更廣泛的 CVE 情報，可搭配 CVSS、CISA KEV、Zero-Day、EOL、PoC 等條件縮小範圍。'],
+      ['My Products','維護實際使用中的 Vendor、Product、Version 與 Criticality，讓弱點情報能與產品清單對照。'],
+      ['Zero-Day / Curated Intelligence','追蹤新出現且影響較高的事件、新聞、公告與研究內容，作為即時判斷的背景情報。'],
+      ['Top CWE Metrics','用 CWE 類型觀察常見弱點類別，協助理解弱點集中在哪些軟體安全問題。']
+    ],
+    concepts:[
+      ['CVSS','弱點本身的技術嚴重度分數；高分代表影響通常較大，但不代表一定正在被攻擊。'],
+      ['EPSS','估計弱點在近期遭到實際利用的機率，可用來補充 CVSS 的「技術嚴重度」。'],
+      ['CISA KEV','已知遭到實際利用的弱點清單。若同時是自身相關產品，通常值得優先關注。'],
+      ['Zero-Day','在修補或完整防護尚未普及前，就已經存在利用風險的弱點情境。'],
+      ['PoC','Proof of Concept，代表已有可證明弱點能被利用的示範程式或方法。'],
+      ['Product Criticality','產品對組織的重要性。即使 CVE 分數相同，核心系統與一般測試環境的處理優先度可能不同。']
+    ],
+    workflow:[
+      '先到 My Products 確認企業實際使用的產品與版本是否已建檔。',
+      "回到 My Org's Exposure，查看與自身環境相關的弱點。",
+      '搭配 CVSS、EPSS、CISA KEV、Zero-Day 與 PoC 判斷風險。',
+      '如果要做威脅背景補充，再查看 Curated Intelligence、News Feed 或 Advisories。',
+      '最後將高風險且與自身產品直接相關的弱點列為優先處理對象。'
+    ],
+    note:'判斷修補順序時，不建議只看單一 CVSS 分數。可以把「是否影響自身產品 × 是否已遭利用 × 利用可能性 × 資產重要性」一起考量。'
+  },
+  'configurations-hub':{
+    intro:'Configurations Hub 是很多 Cyble 功能的「資料來源設定中心」。前台看到的品牌、主管、資產、產品與監控結果，往往都取決於這裡先設定了什麼。',
+    sections:[
+      ['Keywords','設定品牌名、公司名、關鍵字或其他需要被監控的字詞；也是許多情報與警示來源的基礎。'],
+      ['Buckets','把不同關鍵字分組，例如公司品牌、產品線、子公司或特定專案，方便後續管理。'],
+      ['Executives','建立高階主管資料，包含姓名、別名、圖片、聯絡方式、地址與社群帳號等。'],
+      ['Assets','維護 Company Logos、Employee Information、Favicons、Code Repositories 等企業資產。'],
+      ['Products','維護企業正在使用的軟體、版本與 Criticality，供 Vulnerability Intelligence 對照。'],
+      ['Cloud Accounts','連接或管理雲端帳號，作為雲端資產與曝險探索來源。'],
+      ['ASM Assets','查看 Cloud Connectors、自動探索出的資產，以及 Suppression Rules。'],
+      ['AD Integrations','設定 Microsoft Entra ID / Active Directory 類型的整合資訊。'],
+      ['Ask Blaze Integrations','串接安全工具，讓 Ask Blaze 或 Deep Research 可使用額外資料來源。']
+    ],
+    concepts:[
+      ['Keyword ≠ Asset','Keyword 是「我要監控什麼字詞」，Asset 是「企業實際擁有哪些數位資產」，兩者用途不同。'],
+      ['Bucket','是管理關鍵字的分類容器，不是風險分類。'],
+      ['Profile Readiness','建立 Executive 時，用來提醒個人資料是否足夠完整，資料越完整越有利於後續監控與比對。'],
+      ['Auto Discovered Assets','由 ASM 掃描或連接器找到的資產，不一定代表已經正式納入企業資產清單。'],
+      ['Suppression Rule','用來排除不需要持續顯示或追蹤的特定自動探索結果。'],
+      ['Product Criticality','用於區分產品對企業的重要程度，後續可輔助弱點優先排序。']
+    ],
+    workflow:[
+      '先建立 Buckets，再把 Keywords 放進適當分類。',
+      '若有高階主管保護需求，到 Executives 建立完整人物資料。',
+      '補齊 Logos、Favicons、Repositories 等 Assets，提升品牌與資產辨識基礎。',
+      '將企業使用的 Products 與 Version 建檔，支援 Vulnerability Intelligence。',
+      '需要擴充攻擊面時，再設定 Cloud Accounts、ASM Connectors 或其他 Integrations。'
+    ],
+    note:'如果某個前台模組「沒有資料」，不一定代表系統沒有偵測能力，也可能是 Configurations Hub 還沒有建立足夠的監控對象或資產資料。'
+  },
+  'executive-monitoring':{
+    intro:'Executive Monitoring 是針對高階主管數位身分的保護功能。它不是單純搜尋姓名，而是把人物資料、公開資訊、社群帳號與疑似冒用結果關聯起來。',
+    sections:[
+      ['Overview','快速查看主管監控整體狀態、Finding 數量與風險概況。'],
+      ['Executives','查看目前受監控的高階主管、啟用狀態與 Profile Readiness。'],
+      ['Add Executive','新增主管資料，包括 Personal Information、Reference Images、Contact、Addresses、Social Handles。'],
+      ['Findings','查看系統找到的疑似冒用、社群帳號或其他與主管身分相關的風險結果。'],
+      ['Profile Readiness','反映人物資料完整度；資料越完整，通常越有利於後續識別與降低誤判。'],
+      ['On Save','儲存人物資料後，提示系統接下來如何建立或更新監控設定。']
+    ],
+    concepts:[
+      ['Display Name','平台主要顯示名稱；可與正式姓名不同。'],
+      ['Aliases','別名、英文名、常用稱呼等，可提高比對不同公開資料來源的能力。'],
+      ['Reference Images','人物參考照片，用來支援與影像相關的辨識或冒用比對。'],
+      ['Social Handles','官方或已知社群帳號，可協助區分合法帳號與假冒帳號。'],
+      ['Finding','系統找到、需要進一步確認的可疑結果；Finding 本身不代表一定已確認為事件。'],
+      ['Profile Readiness','人物資料完整程度的提示，適合在正式啟用監控前先檢查。']
+    ],
+    workflow:[
+      '先在 Executives 確認目前有哪些主管已納入監控。',
+      '新增主管時，優先填寫正式姓名、職稱、別名與 Reference Images。',
+      '再補充 Email、Phone、Address 與 Social Handles，增加識別依據。',
+      '確認 Profile Readiness 是否足夠，再儲存並啟用監控。',
+      '日常營運時主要回到 Findings，逐筆判斷是否為真實冒用或誤判。'
+    ],
+    note:'高階主管資料屬於敏感的個人資訊。實際正式環境應依公司政策、法規與最小必要原則管理資料蒐集、權限及保存。'
+  }
+};
 
 const nav=document.querySelector('#nav');
 const main=document.querySelector('#main');
@@ -107,7 +192,13 @@ function groupDescription(group){return ({'Dashboard':'管理層與營運視角�
 function detailHtml(slug,p){
   const points=p.points||defaultPoints(p);
   const related=Object.entries(pages).filter(([s,x])=>s!==slug&&x.group===p.group).slice(0,4);
-  return `<article class="doc"><button class="back-link" data-jump="home">← 返回首頁</button><div class="page-head"><div><div class="eyebrow">${p.group.toUpperCase()}</div><h1>${p.title}</h1><p class="lead">${p.en}｜${p.summary}</p></div><div class="page-actions"><a class="demo-btn" href="${pageUrl(p)}" target="_blank" rel="noreferrer">開啟互動 Demo ↗</a></div></div><div class="callout">這個導覽站不取代原平台，而是用來快速理解功能位置、用途與操作順序。需要確認實際互動時，請直接搭配右上角的 Demo 使用。</div><h2>這頁是做什麼？</h2><p>${p.summary}</p><h2>操作重點</h2><ol class="steps">${points.map((x,i)=>`<li><span class="number">${i+1}</span><span>${x}</span></li>`).join('')}</ol><h2>建議你注意</h2><div class="term"><strong>英文名稱</strong><span>${p.en}</span></div><div class="term"><strong>所在分類</strong><span>${p.group}</span></div><div class="term"><strong>適合用在</strong><span>${useCase(p.group)}</span></div><div class="term"><strong>實際操作</strong><span><a class="text-link" href="${pageUrl(p)}" target="_blank" rel="noreferrer">前往此功能的互動 Demo ↗</a></span></div>${related.length?`<h2>同分類功能</h2><div class="feature-grid">${related.map(([s,x])=>`<button class="feature-card" data-jump="${s}"><strong>${x.title}</strong><small>${x.en}</small><p>${x.summary}</p></button>`).join('')}</div>`:''}</article>`
+  return `<article class="doc"><button class="back-link" data-jump="home">← 返回首頁</button><div class="page-head"><div><div class="eyebrow">${p.group.toUpperCase()}</div><h1>${p.title}</h1><p class="lead">${p.en}｜${p.summary}</p></div><div class="page-actions"><a class="demo-btn" href="${pageUrl(p)}" target="_blank" rel="noreferrer">開啟互動 Demo ↗</a></div></div><div class="callout">這個導覽站不取代原平台，而是用來快速理解功能位置、用途與操作順序。需要確認實際互動時，請直接搭配右上角的 Demo 使用。</div><h2>這頁是做什麼？</h2><p>${p.summary}</p><h2>操作重點</h2><ol class="steps">${points.map((x,i)=>`<li><span class="number">${i+1}</span><span>${x}</span></li>`).join('')}</ol>${deepGuideHtml(slug)}<h2>建議你注意</h2><div class="term"><strong>英文名稱</strong><span>${p.en}</span></div><div class="term"><strong>所在分類</strong><span>${p.group}</span></div><div class="term"><strong>適合用在</strong><span>${useCase(p.group)}</span></div><div class="term"><strong>實際操作</strong><span><a class="text-link" href="${pageUrl(p)}" target="_blank" rel="noreferrer">前往此功能的互動 Demo ↗</a></span></div>${related.length?`<h2>同分類功能</h2><div class="feature-grid">${related.map(([s,x])=>`<button class="feature-card" data-jump="${s}"><strong>${x.title}</strong><small>${x.en}</small><p>${x.summary}</p></button>`).join('')}</div>`:''}</article>`
+}
+
+function deepGuideHtml(slug){
+  const g=deepGuides[slug];
+  if(!g)return '';
+  return `<section class="deep-guide"><h2>深入理解</h2><p>${g.intro}</p><h3>頁面地圖</h3><div class="deep-section-grid">${g.sections.map(x=>`<article><strong>${x[0]}</strong><p>${x[1]}</p></article>`).join('')}</div><h3>重要名詞</h3><div class="doc-table deep-table"><table><thead><tr><th>名詞</th><th>白話解釋</th></tr></thead><tbody>${g.concepts.map(x=>`<tr><td><strong>${x[0]}</strong></td><td>${x[1]}</td></tr>`).join('')}</tbody></table></div><h3>建議操作流程</h3><ol class="deep-flow">${g.workflow.map((x,i)=>`<li><span>${i+1}</span><p>${x}</p></li>`).join('')}</ol><div class="callout deep-note"><b>實務提醒：</b>${g.note}</div></section>`
 }
 
 function defaultPoints(p){return [`先確認頁面標題與目前所在的功能分類。`,`使用搜尋、篩選或 Tab 將資料縮小到需要查看的範圍。`,`點擊列表、卡片或詳細項目查看更多內容。`,`需要對照介面時，使用「開啟互動 Demo」進入 ${p.en}。`]}
