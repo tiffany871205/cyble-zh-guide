@@ -529,6 +529,167 @@ const pageUiFields={
     ['Cookie Preferences','Cookie 偏好','管理 Preference、Analytics、Advertising 等 Cookie。'],
     ['Privacy Notice','隱私權聲明','查看平台如何處理與保護使用者資料。'],
     ['About','關於','查看目前產品版本、Build 與建置日期。']
+  ],
+  'advisories':[
+    ['All Advisories','所有公告','顯示目前可閱讀的 Cyble 資安公告清單。'],
+    ['Countries','國家／地區','依公告涉及的國家或區域縮小內容。'],
+    ['Industries','產業','依 BFSI、Healthcare、Government 等產業篩選。'],
+    ['Exclusive Only','僅顯示獨家內容','只顯示被標記為 Exclusive 的研究或公告。'],
+    ['Custom Tags','自訂標籤','依 Initial Access、Exploit、Credential 等標籤分類情報。']
+  ],
+  'newsflash':[
+    ['All Feed','全部快訊','顯示目前所有 NewsFlash 項目。'],
+    ['Countries','國家／地區','依事件或受影響對象所在區域篩選。'],
+    ['Industries','產業','依事件涉及的產業縮小快訊。'],
+    ['Attack Type','攻擊類型','依 Data Breach、Credential Attack、DDoS 等攻擊方式分類。'],
+    ['AI Generated','AI 產生摘要','表示內容包含由 AI 協助整理的摘要資訊。']
+  ],
+  'newsfeed':[
+    ['All Feed','全部新聞','顯示所有 Cyber Newsfeed 內容。'],
+    ['Advisories','公告內容','切換或查看與資安公告相關的新聞內容。'],
+    ['CVEs','CVE','依弱點編號或弱點相關內容查看新聞。'],
+    ['Countries','國家／地區','依新聞涉及的國家或區域篩選。'],
+    ['Industries','產業','依新聞涉及產業縮小結果。']
+  ],
+  'threat-actor-library':[
+    ['Categories','類別','依 APT、Cybercriminal、Hacktivist 等類型篩選威脅行為者。'],
+    ['Also Known As','其他名稱','列出同一 Threat Actor 在不同來源中的別名。'],
+    ['Countries','國家／地區','依行為者活動或關聯地區篩選。'],
+    ['Industries','目標產業','查看行為者常見攻擊產業。'],
+    ['APT Profile','APT 資料頁','查看單一威脅組織的背景、目標與活動摘要。']
+  ],
+  'malware-families':[
+    ['All Malware Families','所有惡意軟體家族','顯示目前收錄的 Malware Family 清單。'],
+    ['Categories','類別','依 Ransomware、Loader、Backdoor 等類型篩選。'],
+    ['Countries','國家／地區','依惡意軟體活動或受影響地區篩選。'],
+    ['Industries','產業','依常見目標產業縮小結果。'],
+    ['Family Profile','家族詳情','查看單一惡意軟體的功能、背景與相關情報。']
+  ],
+  'ioc-lookup':[
+    ['IoC Type','IoC 類型','選擇 Domain、IPv4、IPv6、File Hash、Email 等查詢類型。'],
+    ['Confidence Rating','信心評等','表示平台對該 IoC 判斷可信程度的評分。'],
+    ['Behaviour Tags','行為標籤','描述 IoC 涉及的惡意活動、家族或使用情境。'],
+    ['First Seen','首次發現','平台第一次觀察到該 IoC 的時間。'],
+    ['Source','來源','IoC 的情報來源，例如 CISA、Threat Intel Feed 等。']
+  ],
+  'sensor-intelligence':[
+    ['Statistical View','統計檢視','用統計卡片或圖表查看 Sensor 收到的攻擊訊號。'],
+    ['Data View','資料檢視','切換成逐筆 Sensor Event 的清單。'],
+    ['Attack Origin','攻擊來源','查看攻擊來源國家、組織或來源分布。'],
+    ['Source IP','來源 IP','發起探測或攻擊行為的 IP 位址。'],
+    ['Destination Port','目的埠','被掃描或攻擊的服務 Port。']
+  ],
+  'botshield':[
+    ['Botnet Infections','Botnet 感染','查看與 Botnet 感染活動相關的結果。'],
+    ['DDoS Attacks','DDoS 攻擊','查看分散式阻斷服務攻擊活動。'],
+    ['Attack Category','攻擊類別','區分 DDoS、Botnet 或其他自動化攻擊型態。'],
+    ['Attacker IP Count','攻擊者 IP 數','表示該事件觀察到的來源 IP 數量。'],
+    ['Attack Timeline','攻擊時間軸','查看攻擊開始、持續與結束的時間變化。']
+  ],
+  'ransomware-extortion':[
+    ['All Feed','全部資料','顯示目前收錄的 Ransomware / Extortion 事件。'],
+    ['Ransomware Group','勒索組織','依 Akira、Clop 等勒索組織分類事件。'],
+    ['Industry','產業','依受害者所屬產業篩選。'],
+    ['Country','國家／地區','依受害組織所在地區篩選。'],
+    ['Last Attacked On','最近攻擊日期','顯示最近一次觀察到該受害者或事件的時間。']
+  ],
+  'threat-lens':[
+    ['Upload File','上傳檔案','送交檔案進行動態或沙箱分析。'],
+    ['Submit URL','送出 URL','提交網址進行分析。'],
+    ['Risk Score','風險分數','平台對分析結果給出的風險評估。'],
+    ['Classified As','分類結果','顯示 Benign、Suspicious、Malicious 等分析分類。'],
+    ['Status','狀態','顯示 Submitted、Completed、Failed 等分析進度。']
+  ],
+  'threat-detection-rules':[
+    ['Rule Name','規則名稱','偵測規則的標題。'],
+    ['Rule Type','規則類型','例如 SIGMA、YARA 或其他偵測規則格式。'],
+    ['ATT&CK','MITRE ATT&CK','顯示規則對應的 Tactic / Technique。'],
+    ['References','參考來源','規則使用的研究、公告或其他來源。'],
+    ['Copy Rule','複製規則','將規則內容複製到剪貼簿以供外部工具使用。']
+  ],
+  'hacktivism':[
+    ['Active Campaigns','進行中的行動','顯示目前仍在持續的 Hacktivism 活動。'],
+    ['Most Active Hacktivists','最活躍行動者','列出近期活動量較高的 Hacktivist。'],
+    ['Attacker Group','攻擊者組織','顯示宣稱或參與事件的 Hacktivist 團體。'],
+    ['Attack Time (UTC)','攻擊時間','以 UTC 顯示事件發生或被觀察到的時間。'],
+    ['Channel','來源頻道','情報被發現的 Telegram、Forum、Social Channel 等來源。']
+  ],
+  'darkweb':[
+    ['Total Darkweb Exposures','暗網總曝險數','目前選定期間內觀察到的暗網曝險總量。'],
+    ['Critical Exposures','重大曝險','平台判定優先度較高的暗網結果。'],
+    ['Exposure by Source Surface','來源分布','依 Tor、Leaked Credentials、Compromised Endpoints 等來源分類。'],
+    ['Alert Status Breakdown','警示狀態分布','依 Unreviewed、Viewed、Under Review、Resolved 等狀態統計。'],
+    ['Priority Alerts','優先警示','集中顯示較值得優先檢視的暗網曝險。']
+  ],
+  'cybercrime-monitoring':[
+    ['Total Cybercrime Exposures','網路犯罪曝險總量','目前期間內來自犯罪論壇或社群的總曝險數。'],
+    ['Critical Cybercrime Threats','重大犯罪威脅','平台認定優先度較高的 Cybercrime 相關結果。'],
+    ['Exposure by Channel','來源頻道分布','依 Telegram、Discord、Marketplace、Forum 等來源分類。'],
+    ['Cybercrime Chatter Trend','犯罪討論趨勢','觀察地下社群相關討論量的變化。'],
+    ['Priority Cybercrime Alerts','優先犯罪警示','集中顯示高優先度的 Cybercrime Findings。']
+  ],
+  'compromised-cards':[
+    ['Total Card Exposures','卡片曝險總量','目前期間內觀察到的支付卡曝險數。'],
+    ['High-Risk Cards','高風險卡片','平台判定需優先關注的卡片曝險。'],
+    ['Exposure by Source','來源分布','依 Marketplace、Forum 或其他來源統計曝險。'],
+    ['Card Exposure Trend','卡片曝險趨勢','觀察支付卡資料曝險量隨時間的變化。'],
+    ['Priority Card Alerts','優先卡片警示','集中顯示需要優先檢視的卡片事件。']
+  ],
+  'compromised-files':[
+    ['Compromised Files','遭入侵檔案','顯示在外洩或地下來源中發現的敏感檔案。'],
+    ['File Name','檔案名稱','被觀察到外洩的檔案名稱或識別。'],
+    ['Source','來源','檔案被發現的 Dark Web、Paste、Cloud 或其他資料來源。'],
+    ['Severity','嚴重度','協助區分外洩內容的優先處理程度。'],
+    ['Status','狀態','表示該檔案事件目前是否已檢視、確認或完成處理。']
+  ],
+  'data-leaks':[
+    ['All Exposures','所有曝險','顯示目前 Data Leaks 模組收錄的所有外洩結果。'],
+    ['Cloud Storage','雲端儲存曝險','來自公開或設定錯誤的 Cloud Storage 結果。'],
+    ['Code Analysis - Github','GitHub 程式碼曝險','在 GitHub 公開內容中發現的敏感資料。'],
+    ['Pastesite','貼文網站','在 Paste 類網站發現的敏感內容。'],
+    ['Surface Exposure Matrix','曝險來源矩陣','用來源與風險維度快速比較不同外洩類型。']
+  ],
+  'social-media-monitoring':[
+    ['Total Alerts','總警示數','目前選定期間內的社群媒體警示總量。'],
+    ['Severity Distribution','嚴重度分布','依 High、Medium 等級統計警示。'],
+    ['Source Distribution','來源分布','依 Facebook、Instagram、LinkedIn、Reddit、YouTube 等平台分類。'],
+    ['Top Keywords','熱門關鍵字','近期在社群結果中最常命中的監控字詞。'],
+    ['Timeline','時間軸','查看社群警示隨時間的變化。']
+  ],
+  'watchlisted-domains':[
+    ['Add Domain','新增網域','將指定 Domain 加入持續監控清單。'],
+    ['Added to Watchlist','加入監控時間','顯示網域被加入 Watchlist 的日期。'],
+    ['Last DNS Check','最近 DNS 檢查','平台最近一次檢查網域 DNS 的時間。'],
+    ['Last Updated Record','最近紀錄更新','顯示該網域監控紀錄最後一次更新。'],
+    ['Takedown','下架','查看或進一步處理與該 Domain 相關的下架工作。']
+  ],
+  'website-monitoring':[
+    ['Add Domain','新增網域','新增需要持續監控內容變化的網站。'],
+    ['Keywords','關鍵字','指定要在網站內容中持續追蹤的字詞。'],
+    ['Search Domain','搜尋網域','從已加入的網站清單快速找到特定 Domain。'],
+    ['Domain Details','網域詳情','查看單一網站的設定與監控結果。'],
+    ['Records','紀錄','顯示目前已加入監控的網站筆數。']
+  ],
+  'website-watermarking':[
+    ['Domains','網域','列出已設定 Website Watermarking 的官方網站。'],
+    ['Watermark Token (JS)','浮水印 Token','嵌入 JavaScript 時使用的唯一識別 Token。'],
+    ['HTML','HTML 程式碼','提供可嵌入官方網站的 HTML / Script 片段。'],
+    ['Created On','建立時間','顯示 Watermark 設定建立日期。'],
+    ['Last Updated','最後更新','顯示設定最近一次修改時間。']
+  ],
+  'takedown-tracker':[
+    ['Alert ID','警示編號','與下架案件關聯的原始 Alert 識別。'],
+    ['Primary Abuse URL','主要濫用網址','需要申請下架的主要惡意 URL。'],
+    ['Status','案件狀態','顯示 Active、On Hold、Closed、Duplicate 等目前進度。'],
+    ['Active Duration','處理時間','案件從建立到目前狀態的持續時間。'],
+    ['Change Log','變更紀錄','保存案件狀態與操作歷程。']
+  ],
+  'mobile-application-monitoring':[
+    ['Total App Exposures','App 曝險總量','目前期間內觀察到的可疑 App 總量。'],
+    ['High-Risk Apps','高風險 App','平台判定較需要優先檢視的可疑應用程式。'],
+    ['Exposure by App Platform','App 平台分布','依 App Store、Play Market 等平台分類。'],
+    ['App Detection Trend','App 偵測趨勢','觀察可疑 App 發現量隨時間變化。'],
+    ['Priority App Alerts','優先 App 警示','集中顯示較高優先度的 App Findings。']
   ]
 };
 
