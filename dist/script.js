@@ -149,6 +149,176 @@ const deepGuides={
       '日常營運時主要回到 Findings，逐筆判斷是否為真實冒用或誤判。'
     ],
     note:'高階主管資料屬於敏感的個人資訊。實際正式環境應依公司政策、法規與最小必要原則管理資料蒐集、權限及保存。'
+  },
+  'attack-surface-dashboard':{
+    intro:'Attack Surface Dashboard 可以把它想成 EASM 的「總覽地圖」：先看企業對外暴露了哪些資產，再看其中哪些資產出現問題，最後決定要往 Asset Inventory、Issue Catalog 或技術細節頁面深入。',
+    sections:[
+      ['Attack Surface Summary','快速查看目前被發現的外部資產、問題量與風險變化。'],
+      ['Assets by Type','用 Domain、IP、Host、Cloud 等類型理解外部資產組成。'],
+      ['Issue Distribution','從 Critical、High、Medium、Low 等級看目前曝險集中在哪裡。'],
+      ['Trend / Timeline','觀察資產或 Issue 隨時間增加、減少與修復後的變化。'],
+      ['Top Exposed Assets','先鎖定問題多、風險高或重要性高的資產。']
+    ],
+    concepts:[
+      ['Attack Surface','從網際網路可看到、可連線或可被識別的企業數位資產與服務範圍。'],
+      ['EASM','External Attack Surface Management，持續探索並管理企業外部攻擊面。'],
+      ['Discovered Asset','由平台自動找到的資產；仍需確認是否真的是企業所有或應納管。'],
+      ['Exposure','資產對外暴露的服務、設定、弱點或其他可能被攻擊者利用的條件。'],
+      ['Issue','平台根據資產觀察結果整理出的安全問題或需確認項目。'],
+      ['Confidence','系統對「這個資產是否與企業有關」的判斷信心，不等於安全風險分數。']
+    ],
+    workflow:[
+      '先從 Dashboard 看整體資產量、Issue 數量與趨勢。',
+      '如果資產數量異常增加，先進 Asset Inventory 確認新發現資產。',
+      '如果 Critical / High Issue 增加，再進 Issue Catalog 查看問題類型與受影響資產。',
+      '針對 SSL/TLS、Open Ports、Web 等技術問題，再到對應頁面深入確認。',
+      '確認問題與資產歸屬後，再交由內部資產負責人進行修補或風險接受。'
+    ],
+    note:'EASM 的第一步通常不是「掃到什麼就立刻修」，而是先確認資產歸屬與重要性。錯把第三方或歷史資產當成自己的，會讓修補工作失焦。'
+  },
+  'asset-inventory':{
+    intro:'Asset Inventory 是外部攻擊面的資產清冊。它回答的是「平台目前認為哪些 Domain、IP、Host 或其他資產與我的公司有關」，也是後續 Issue 分析的基礎。',
+    sections:[
+      ['Asset List','查看每一筆外部資產與其類型、狀態、來源及相關資訊。'],
+      ['Search / Filters','用資產類型、狀態、來源或關鍵字縮小清單。'],
+      ['Asset Detail','點進單一資產查看相關服務、問題、DNS、憑證或其他技術資訊。'],
+      ['Discovered vs Managed','區分系統探索到的資產與已確認納管的資產。']
+    ],
+    concepts:[
+      ['Domain','企業對外使用的網域名稱，例如 example.com。'],
+      ['Subdomain','主網域底下的子網域，例如 vpn.example.com。'],
+      ['IP Address','對外服務實際使用的網路位址，可能對應主機、設備或雲端資源。'],
+      ['Asset Ownership','確認資產是否真的由企業擁有、營運或需要承擔風險。'],
+      ['Shadow IT','未經正式 IT 流程建立，但仍與企業有關的網站、雲端服務或外部系統。']
+    ],
+    workflow:[
+      '先用搜尋或 Filter 找到想確認的 Domain / IP。',
+      '檢查資產的發現來源、關聯資訊與是否仍在使用。',
+      '若是未知資產，先向內部確認 Ownership，而不是直接視為惡意。',
+      '確認為企業資產後，再查看它有哪些 Issue 或曝險。',
+      '對已淘汰或誤判資產，可依平台功能做 Suppression、排除或狀態調整。'
+    ],
+    note:'Asset Inventory 的價值在「持續盤點」，不是一次性的資產清冊。企業新增雲端服務、臨時網站或子網域後，攻擊面也會跟著改變。'
+  },
+  'issue-catalog':{
+    intro:'Issue Catalog 把攻擊面掃描結果整理成「需要處理的問題清單」。比起只看資產，它更適合用來回答「現在到底有哪些外部曝險值得處理」。',
+    sections:[
+      ['Issue List','依問題類型列出受影響資產、Severity、狀態與時間資訊。'],
+      ['Severity Filters','快速聚焦 Critical / High 等高風險問題。'],
+      ['Issue Detail','查看問題說明、影響範圍、受影響資產與修補方向。'],
+      ['Status / Workflow','追蹤問題是否已確認、處理中、已解決或不需處理。']
+    ],
+    concepts:[
+      ['Severity','平台對問題影響程度的分級，用於協助排序，但仍要搭配資產重要性判斷。'],
+      ['First Seen','平台第一次觀察到這個問題的時間。'],
+      ['Last Seen','最近一次仍觀察到問題的時間；可用來判斷問題是否仍存在。'],
+      ['Affected Asset','實際出現此問題的資產。'],
+      ['Remediation','降低或移除風險的處理方式，例如關閉服務、更新版本或修正設定。']
+    ],
+    workflow:[
+      '先用 Severity 篩選 Critical / High。',
+      '確認問題影響哪些資產，以及這些資產對企業的重要性。',
+      '查看 First Seen / Last Seen，判斷是長期存在還是新出現。',
+      '閱讀 Issue Detail 與建議處理方式，再分派給資產負責人。',
+      '處理完成後重新確認是否仍被平台觀察到。'
+    ],
+    note:'同一種 Issue 可能出現在多個資產上。實務上可先找「影響資產多」或「核心資產上的高風險 Issue」，通常比逐筆處理更有效率。'
+  },
+  'third-party-risk':{
+    intro:'Third Party Risk 用來管理供應商與合作夥伴的資安風險。重點不是替供應商做內部稽核，而是把外部可觀察資訊、評估結果與追蹤工作集中管理。',
+    sections:[
+      ['Third Party Overview','查看目前供應商數量、風險分布與重點異常。'],
+      ['Company / Vendor List','逐一查看第三方公司的基本資料與風險概況。'],
+      ['Risk Signals','彙整外部攻擊面、資料外洩、威脅情報等可觀察風險。'],
+      ['Reports','產出或閱讀第三方風險報告，作為供應商評估與溝通依據。'],
+      ['Follow-up','針對高風險供應商安排進一步確認、改善或接受風險。']
+    ],
+    concepts:[
+      ['Third Party','供應商、委外商、合作夥伴或其他與企業有業務關係的外部組織。'],
+      ['Inherent Risk','尚未考慮控制措施前，因服務內容、資料存取或業務依賴本身帶來的風險。'],
+      ['Residual Risk','考慮既有控制與改善措施後，仍然存在的剩餘風險。'],
+      ['Continuous Monitoring','不是一年只評一次，而是持續觀察供應商外部風險變化。'],
+      ['Risk Acceptance','企業判斷風險在可接受範圍內，因此不要求額外改善。']
+    ],
+    workflow:[
+      '先依供應商重要程度、資料存取與服務依賴做分級。',
+      '查看高重要度供應商目前的外部風險與異常訊號。',
+      '若出現高風險事件，再搭配 Third Party Reports 或其他證據深入確認。',
+      '必要時要求供應商提供改善說明、修補證明或額外文件。',
+      '定期追蹤改善是否完成，並保留接受風險或例外處理紀錄。'
+    ],
+    note:'第三方風險不能只看一個分數。供應商「對你有多重要、能接觸什麼資料、服務中斷會造成什麼影響」通常跟外部安全觀察同樣重要。'
+  },
+  'third-party-reports':{
+    intro:'Third Party Reports 是把第三方風險資訊整理成可閱讀、可分享的報告。適合供應商檢視、內部審查、管理層報告與後續改善追蹤。',
+    sections:[
+      ['Report List','集中查看已建立的第三方風險報告。'],
+      ['Company Scope','確認每份報告針對哪一家供應商或哪個評估範圍。'],
+      ['Risk Findings','查看報告中整理的主要風險與證據。'],
+      ['Export / Share','將結果提供給內部利害關係人或後續評估流程使用。']
+    ],
+    concepts:[
+      ['Report Scope','報告涵蓋的公司、資產、期間或風險類型。'],
+      ['Finding','報告中需要關注的風險觀察結果。'],
+      ['Evidence','支持 Finding 的外部觀察、技術資訊或其他佐證。'],
+      ['Customisation','依不同對象調整報告欄位、內容或呈現方式。']
+    ],
+    workflow:[
+      '先確認報告公司與評估範圍正確。',
+      '閱讀高風險 Finding 與相關證據。',
+      '把需要供應商回覆的項目整理成改善清單。',
+      '依管理層、採購、資安或稽核需求調整報告呈現。',
+      '後續將改善狀態與下一次檢視時間記錄下來。'
+    ],
+    note:'報告適合當成溝通材料，但不代表所有風險都已經被證實。對高影響 Finding，仍應搭配供應商回覆或其他證據確認。'
+  },
+  'malicious-domains':{
+    intro:'Malicious Domains 是 Brand Intelligence 裡最常用來處理仿冒與釣魚的功能之一。它會把疑似與品牌相似、可能誤導使用者的網域集中呈現，讓分析人員判斷是否需要監控或下架。',
+    sections:[
+      ['Domain Findings','查看疑似仿冒、拼字相似或品牌濫用的網域。'],
+      ['Similarity / Detection Signals','了解系統為什麼認為該網域與品牌有關。'],
+      ['Status / Review','標記是否已檢視、確認惡意、誤判或正在處理。'],
+      ['Takedown','若確認為惡意仿冒，可進一步建立或追蹤下架案件。']
+    ],
+    concepts:[
+      ['Typosquatting','利用拼字錯誤或相似字串註冊網域，例如少一個字母或交換字母。'],
+      ['Punycode','把 Unicode 網域轉成 ASCII 的表示方式；有時會被用來製造視覺上很像的網域。'],
+      ['Homoglyph','利用外觀相似的字元混淆使用者，例如拉丁字母與其他語系字母。'],
+      ['Brand Impersonation','未經授權冒用企業名稱、Logo、版面或身分。'],
+      ['Takedown','向 Registrar、Hosting、平台或相關服務商提出移除惡意內容的處理流程。']
+    ],
+    workflow:[
+      '先看新出現的 Domain Finding 與相似度訊號。',
+      '確認網域是否真的與公司無關，並檢查網站內容、憑證、DNS 與品牌元素。',
+      '若只是相似但沒有惡意內容，可先監控或標記為低風險。',
+      '若確認存在釣魚、冒用或詐騙，再建立 Takedown。',
+      '持續到 Takedown Tracker 追蹤處理進度與最終狀態。'
+    ],
+    note:'「看起來像公司」不等於「一定是惡意」。正式下架前應先確認 Ownership、內容與證據，避免誤處理合法合作夥伴或活動網站。'
+  },
+  'takedown-tracker':{
+    intro:'Takedown Tracker 是品牌保護事件的後續工作區。當仿冒網域、社群帳號、App 或其他惡意內容送出下架後，可以在這裡持續看案件目前走到哪一步。',
+    sections:[
+      ['Case List','查看所有已建立的下架案件與目前狀態。'],
+      ['Target','確認要下架的 Domain、URL、社群帳號或其他對象。'],
+      ['Status / Timeline','追蹤案件已送出、等待回覆、處理中或已完成。'],
+      ['Evidence / Notes','保留下架依據、補件資訊與處理紀錄。']
+    ],
+    concepts:[
+      ['C&D','Cease and Desist，要求對方停止侵權或惡意行為的通知。'],
+      ['Registrar','管理網域註冊的服務商。'],
+      ['Hosting Provider','實際提供網站主機或內容代管的服務商。'],
+      ['Platform Takedown','向社群、App Store、Marketplace 等平台申請移除內容。'],
+      ['SLA','預期處理時間或服務承諾，用於追蹤案件是否延遲。']
+    ],
+    workflow:[
+      '從已確認的惡意 Finding 建立下架案件。',
+      '確認 Target 與 Evidence 完整，避免送錯對象。',
+      '依內容類型送交 Registrar、Hosting Provider 或平台。',
+      '持續查看狀態、回覆與是否需要補充資料。',
+      '完成後確認惡意內容實際已無法存取，再關閉案件。'
+    ],
+    note:'「已送出下架」不代表「已經下架」。真正完成前仍要持續驗證目標是否可存取，並保留處理紀錄。'
   }
 };
 
