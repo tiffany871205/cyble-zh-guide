@@ -322,6 +322,136 @@ const deepGuides={
   }
 };
 
+
+const groupTerms={
+  'Dashboard':[
+    ['Alert','警示','平台根據偵測條件產生、需要人員查看或處理的事件通知。'],
+    ['Severity','嚴重度','用來表示警示或問題影響程度的分級，例如 Low、Medium、High、Critical。'],
+    ['Trend','趨勢','一段時間內數值上升、下降或持平的變化方向。'],
+    ['Finding','發現事項','平台找到、需要進一步確認的風險結果；不代表已經確認為事件。']
+  ],
+  'Threat Intelligence':[
+    ['Threat Actor','威脅行為者','執行或參與攻擊活動的個人、組織或團體。'],
+    ['IoC','入侵指標','Indicator of Compromise，例如惡意 IP、Domain、URL、Hash 等可用於調查或偵測的線索。'],
+    ['TTP','戰術、技術與程序','Threat actor 執行攻擊時常見的行為模式，常搭配 MITRE ATT&CK 理解。'],
+    ['Confidence','信心程度','平台對情報判斷可信程度的標示，不等同風險嚴重度。']
+  ],
+  'Dark Web & Cybercrime':[
+    ['Dark Web','暗網','需要特定軟體或網路才能存取的網路空間，例如 Tor 服務。'],
+    ['Deep Web','深網','一般搜尋引擎無法直接索引的內容，不代表一定與犯罪有關。'],
+    ['Credential','帳號憑證','可用來登入帳號的資訊，例如帳號、Email、密碼或 Token。'],
+    ['Stealer Log','竊資惡意程式紀錄','由資訊竊取型惡意程式收集的帳密、Cookie、瀏覽器資料等紀錄。']
+  ],
+  'Attack Surface':[
+    ['EASM','外部攻擊面管理','External Attack Surface Management，持續探索並管理企業對外可見資產與曝險。'],
+    ['Asset','資產','企業對外可見或可被識別的 Domain、IP、Host、Cloud 資源等。'],
+    ['Exposure','曝險','可能讓攻擊者接觸、利用或取得資訊的外部暴露條件。'],
+    ['Finding / Issue','發現事項／問題','平台根據資產觀察結果整理出的安全問題或需確認項目。']
+  ],
+  'Brand Intelligence':[
+    ['Brand Impersonation','品牌冒用','未經授權使用企業名稱、Logo、版面或身分以誤導使用者。'],
+    ['Typosquatting','錯字網域仿冒','透過拼字錯誤、少字、多字或交換字母建立與品牌相似的網域。'],
+    ['Phishing','網路釣魚','利用仿冒網站、Email、社群帳號等誘導使用者交出敏感資訊。'],
+    ['Takedown','下架處理','向 Registrar、Hosting Provider、社群或平台提出移除惡意內容的流程。']
+  ],
+  'Executive Monitoring':[
+    ['Executive','高階主管','被納入數位身分監控與保護的主管或重要人物。'],
+    ['Alias','別名','人物可能使用的英文名、暱稱、舊名或其他公開稱呼。'],
+    ['Social Handle','社群帳號識別','社群平台上的帳號名稱或 Handle，用來比對官方與可疑帳號。'],
+    ['Profile Readiness','資料完整度','用來表示人物資料是否足夠完整，可協助後續監控與比對。']
+  ],
+  'Third Party Risk':[
+    ['Third Party','第三方','供應商、委外商、合作夥伴或其他與企業有業務關係的外部組織。'],
+    ['Third-Party Risk','第三方風險','因第三方的資安、營運或資料處理問題而傳遞給企業的風險。'],
+    ['Continuous Monitoring','持續監控','不是只做一次評估，而是持續追蹤供應商風險變化。'],
+    ['Residual Risk','剩餘風險','考慮既有控制與改善措施後仍存在的風險。']
+  ],
+  'Vulnerability Intelligence':[
+    ['CVE','公開弱點編號','Common Vulnerabilities and Exposures，用唯一編號識別已公開的弱點。'],
+    ['CVSS','通用弱點評分系統','描述弱點技術嚴重度的分數，不代表一定正在被利用。'],
+    ['EPSS','利用可能性預測分數','估計弱點近期遭到實際利用的機率，用來補充 CVSS。'],
+    ['CISA KEV','已知遭利用弱點清單','美國 CISA 維護的 Known Exploited Vulnerabilities，代表已知有實際利用情況。']
+  ],
+  'Utilities':[
+    ['Report','報告','平台整理後可閱讀、下載或分享的結果文件。'],
+    ['API','應用程式介面','讓外部系統用程式方式讀取或操作平台資料的介面。'],
+    ['Integration','整合','把 Cyble 與其他工具或平台串接，交換警示、事件或情報。'],
+    ['Authentication','驗證','確認 API 或整合使用者身分與存取權限的機制。']
+  ],
+  'Control Panel':[
+    ['Role','角色','定義使用者在平台中可執行哪些操作的權限集合。'],
+    ['Service Access','服務存取權','控制使用者可以看到或使用哪些 Cyble 模組。'],
+    ['Configuration','設定','平台功能運作所需的參數、監控目標或整合資料。'],
+    ['Notification','通知','平台透過 Email、Slack、WhatsApp、SMS 等管道傳送的提醒。']
+  ]
+};
+
+const pageTerms={
+  'executive-insights':[['Executive Insights','高階管理洞察','以管理層需要的方式彙整整體風險、趨勢與重要事件。'],['Threat Posture','威脅態勢','組織目前面對的外部威脅與風險狀況。'],['Risk Summary','風險摘要','將多項風險指標濃縮成管理層可快速理解的摘要。']],
+  'alerts-insights':[['Alerts Insights','警示洞察','用統計與分類方式整理大量警示，協助看出異常集中在哪裡。'],['Severity Distribution','嚴重度分布','依 Low、Medium、High、Critical 等級統計警示數量。'],['Alert Status','警示狀態','表示警示尚未檢視、處理中、已解決等目前進度。']],
+  'operational-insights':[['Operational Insights','營運洞察','從日常資安作業與處理效率角度觀察平台資訊。'],['Operational Metric','營運指標','用來衡量工作量、處理狀態或服務表現的數據。'],['Backlog','待處理工作','尚未完成或等待處理的警示、事件或工作項目。']],
+  'advisories':[['Advisory','資安公告','針對特定弱點、威脅或攻擊活動整理的分析與建議。'],['Affected Product','受影響產品','可能受到該弱點或威脅影響的軟體、設備或版本。'],['Mitigation','緩解措施','在完整修補前降低風險的替代措施。']],
+  'newsflash':[['NewsFlash','威脅快訊','快速整理最新重大資安事件或地下犯罪活動的短篇情報。'],['Breaking Threat','突發威脅','近期快速發展、需要及時關注的威脅事件。'],['Source','來源','支撐情報內容的公開或非公開資料來源。']],
+  'newsfeed':[['Cyber Newsfeed','資安新聞動態','彙整多個外部來源的資安新聞與產業資訊。'],['Feed','資訊流','依時間持續更新的內容列表。'],['Publisher','發布來源','原始新聞、研究或文章的發布單位。']],
+  'threat-actor-library':[['Threat Actor Library','威脅行為者資料庫','集中整理已知威脅組織、別名、活動與技術資訊。'],['Alias','別名','同一威脅組織在不同研究來源中的其他名稱。'],['Campaign','攻擊活動','一段時間內具有共同目標、手法或基礎設施的一系列攻擊。']],
+  'malware-families':[['Malware Family','惡意軟體家族','具有相似程式碼、行為或開發來源的一群惡意軟體。'],['RAT','遠端存取木馬','Remote Access Trojan，可讓攻擊者遠端控制受害裝置。'],['Loader','載入器','用來下載或啟動其他惡意程式的程式。']],
+  'ioc-lookup':[['Hash','雜湊值','檔案內容計算出的識別值，例如 MD5、SHA-1、SHA-256。'],['Domain','網域','可用於連線至網站或服務的名稱。'],['IP Reputation','IP 信譽','根據歷史惡意活動評估 IP 是否可疑。']],
+  'sensor-intelligence':[['Sensor','感測器','用來蒐集外部掃描、攻擊或網路活動訊號的資料來源。'],['Telemetry','遙測資料','由感測器持續蒐集的活動與事件資料。'],['Probe','探測行為','對網路服務進行探測或掃描的行為。']],
+  'botshield':[['Bot','機器人流量','由自動化程式產生的網路請求，不一定都是惡意。'],['Malicious Bot','惡意機器人','用於掃描、撞庫、濫用或其他惡意目的的自動化程式。'],['Automation','自動化行為','由程式自動執行、非人工逐步操作的活動。']],
+  'ransomware-extortion':[['Ransomware','勒索軟體','透過加密、竊取資料或威脅公開資料要求贖金的攻擊。'],['Leak Site','勒索外洩網站','勒索組織用來公布受害者或外洩資料的網站。'],['Double Extortion','雙重勒索','同時使用資料加密與公開外洩威脅迫使受害者付款。']],
+  'threat-lens':[['Threat Lens','威脅關聯分析','將多個威脅訊號放在同一視角中關聯分析。'],['Entity','實體','情報分析中的人物、組織、IP、Domain、Malware 等對象。'],['Relationship','關聯','不同情報實體之間的連結，例如同一 Threat Actor 使用某個 Domain。']],
+  'threat-detection-rules':[['Detection Rule','偵測規則','用條件描述可疑行為，供 SIEM、EDR 等工具偵測。'],['Sigma','通用偵測規則格式','以通用 YAML 格式描述日誌偵測邏輯，可轉換成不同 SIEM 查詢。'],['YARA','檔案比對規則','用字串與條件辨識惡意檔案、樣本或記憶體內容。']],
+  'hacktivism':[['Hacktivism','駭客行動主義','以政治、社會或意識訴求為目的的網路攻擊活動。'],['DDoS','分散式阻斷服務','利用大量流量讓網站或服務無法正常提供服務。'],['Defacement','網站竄改','未授權修改網站頁面內容或外觀。']],
+  'darkweb':[['Tor','洋蔥路由網路','常用來匿名存取 .onion 服務的網路。'],['I2P','匿名網路','Invisible Internet Project，用於匿名通訊與隱藏服務。'],['Onion Service','洋蔥服務','透過 Tor 存取、常以 .onion 位址表示的服務。']],
+  'cybercrime-monitoring':[['Cybercrime Forum','網路犯罪論壇','交流惡意工具、外洩資料或犯罪服務的地下社群。'],['Marketplace','地下市場','買賣帳密、卡片、惡意程式或其他非法服務的平台。'],['Mention','提及','資料來源中出現企業、品牌、網域或關鍵字的紀錄。']],
+  'compromised-cards':[['Compromised Card','遭入侵卡片','可能因外洩、竊資或黑市交易而曝光的支付卡資訊。'],['BIN','銀行識別碼','支付卡號前段用來識別發卡機構的號碼。'],['Carding','盜刷活動','利用被竊支付卡資料進行詐騙交易的行為。']],
+  'compromised-files':[['Compromised File','遭入侵檔案','在外洩或地下來源中出現的敏感檔案。'],['Data Exposure','資料曝露','敏感資料在非預期位置被公開或可取得。'],['Archive','壓縮封裝檔','ZIP、RAR、7z 等用來封裝多個檔案的格式。']],
+  'data-leaks':[['Data Leak','資料外洩','敏感資料未經授權被公開、流出或取得。'],['Breach','資料侵害事件','攻擊者成功進入系統並造成資料存取、竄改或外洩的事件。'],['Exposure Source','曝露來源','資料被發現的平台或來源，例如 Paste、Forum、Cloud Storage。']],
+  'attack-surface-dashboard':[['Attack Surface','攻擊面','企業所有可被外部看見、接觸或攻擊的數位資產範圍。'],['Discovered Asset','探索到的資產','平台自動辨識到、可能與企業相關的資產。'],['Confidence','資產歸屬信心度','系統判斷該資產與企業關聯程度的信心，不是風險分數。']],
+  'asset-inventory':[['Asset Inventory','資產清冊','集中列出平台辨識到的外部資產。'],['Shadow IT','影子 IT','未經正式 IT 管理流程建立或使用的系統與服務。'],['Ownership','資產歸屬','確認資產是否由企業擁有、營運或需承擔風險。']],
+  'issue-catalog':[['Issue Catalog','問題目錄','把外部曝險與安全問題依類型集中整理。'],['First Seen','首次發現','平台第一次觀察到該問題的時間。'],['Last Seen','最近發現','平台最近一次仍觀察到該問題的時間。']],
+  'ssl-tls':[['TLS','傳輸層安全協定','保護網路傳輸資料機密性與完整性的加密協定。'],['Certificate','數位憑證','用來證明網站或服務身分並建立加密連線的憑證。'],['Cipher Suite','加密套件','TLS 連線使用的一組金鑰交換、加密與驗證演算法。']],
+  'signatures':[['Signature','特徵指紋','用來辨識特定產品、技術、服務或惡意活動的特徵。'],['Fingerprinting','指紋辨識','從回應內容、Header、Port 等資訊推測系統使用的技術。'],['Banner','服務橫幅資訊','服務對外回應中可能透露產品或版本的文字資訊。']],
+  'on-demand-scan':[['On-Demand Scan','即時掃描','由使用者針對特定目標主動發起的一次性掃描。'],['Target','掃描目標','要掃描的 Domain、IP、URL 或其他資產。'],['Scan Status','掃描狀態','表示掃描正在排隊、執行、完成或失敗。']],
+  'cloud-connectors':[['Cloud Connector','雲端連接器','讓平台透過授權讀取雲端帳號中的資產資訊。'],['Read-Only Credential','唯讀憑證','只允許讀取資料、不允許修改雲端資源的授權。'],['Tenant / Account','租戶／帳號','雲端環境中的管理邊界或帳戶識別。']],
+  'malicious-domains':[['Homoglyph','同形字元仿冒','使用外觀看起來相似的不同字元混淆使用者。'],['Punycode','國際化網域編碼','將 Unicode 網域轉成 ASCII 表示的編碼方式，常見前綴為 xn--。'],['Suspicious Domain','可疑網域','因名稱、內容、註冊或基礎設施特徵而值得進一步確認的網域。']],
+  'social-media-monitoring':[['Social Media Impersonation','社群冒用','在社群平台建立仿冒企業或人物的帳號。'],['Handle','帳號名稱','社群平台上的唯一或公開帳號識別。'],['Profile Clone','帳號複製','複製合法帳號名稱、照片與內容建立假帳號。']],
+  'watchlisted-domains':[['Watchlist','監控清單','使用者主動加入、需要持續追蹤的目標集合。'],['Domain Monitoring','網域監控','持續觀察網域註冊、DNS、內容或狀態變化。'],['Registrant','網域註冊人','WHOIS 或註冊資料中顯示的網域持有人資訊。']],
+  'website-monitoring':[['Website Monitoring','網站監控','持續觀察指定網站是否出現內容或狀態變化。'],['Content Change','內容變更','網站文字、圖片、版面或其他內容發生的變化。'],['Defacement','網站竄改','網站遭未授權修改內容或頁面。']],
+  'website-watermarking':[['Watermarking','網站特徵標記','建立可辨識官方網站的特徵，用於協助找出複製或仿冒頁面。'],['Clone Site','複製網站','大量複製官方網站內容與版面建立的仿冒網站。'],['DOM Similarity','頁面結構相似度','比較網站 HTML / DOM 結構是否與官方頁面高度相似。']],
+  'takedown-tracker':[['C&D','停止侵權通知','Cease and Desist，要求對方停止侵權或惡意行為的正式通知。'],['Registrar','網域註冊商','提供網域註冊與管理服務的業者。'],['Hosting Provider','主機服務商','提供網站主機或內容代管的業者。']],
+  'mobile-application-monitoring':[['Mobile App Impersonation','行動 App 冒用','在 App Store 或其他來源發布仿冒品牌的應用程式。'],['Package Name','套件名稱','Android App 的唯一應用程式識別。'],['Developer Name','開發者名稱','App Store 上顯示的發布者或開發者名稱。']],
+  'executive-monitoring':[['Finding','發現事項','與主管身分、社群帳號或冒用相關、需要進一步確認的結果。'],['Reference Image','參考圖片','用於人物識別與冒用比對的已知照片。'],['Display Name','顯示名稱','平台中主要顯示的人物名稱，可與正式姓名不同。']],
+  'third-party-risk':[['Inherent Risk','固有風險','尚未考慮控制措施前，因服務內容、資料存取或依賴程度帶來的風險。'],['Risk Acceptance','風險接受','組織判斷剩餘風險可接受，因此不要求進一步改善。'],['Vendor','供應商','提供產品、服務或資料處理能力的第三方組織。']],
+  'third-party-reports':[['Report Scope','報告範圍','報告涵蓋的公司、期間、資產或風險類型。'],['Evidence','佐證','支持某項風險或 Finding 的觀察資料。'],['Assessment','評估','依既定標準對第三方安全風險進行檢視的流程。']],
+  'report-customisation':[['Template','範本','用來決定報告版面與內容結構的設定。'],['Section','報告章節','報告中可選擇顯示或隱藏的內容區塊。'],['Branding','品牌樣式','報告中的 Logo、名稱或其他組織識別設定。']],
+  'vulnerability-intelligence':[['Zero-Day','零時差弱點','修補或完整防護尚未普及前就存在利用風險的弱點。'],['PoC','概念驗證','Proof of Concept，可證明弱點能被利用的示範程式或方法。'],['CWE','常見弱點類型','Common Weakness Enumeration，用來分類軟體弱點成因。']],
+  'vulnerability-products':[['Vendor','軟體供應商','產品的開發或發布廠商。'],['Product','產品','被納入弱點對照的軟體、系統或設備。'],['Version','版本','產品的特定版本號，會影響弱點是否適用。'],['Criticality','重要程度','產品對企業的重要性，用來輔助風險排序。']],
+  'reports-management':[['Alert Report','警示報告','由警示資料產生、可供閱讀或下載的報告。'],['Generated Report','已產生報告','系統完成產生、可供後續下載或查看的報告。'],['Report Type','報告類型','用來區分警示、事件或其他用途報告的分類。']],
+  'status-tracker':[['Bulk Update','大量更新','一次對多筆警示或紀錄執行狀態更新。'],['Job Status','工作狀態','顯示大量更新工作目前排隊、執行、完成或失敗。'],['Tracker','追蹤器','用來查看背景工作處理進度與結果的頁面。']],
+  'access-apis':[['Endpoint','端點','API 可呼叫的特定路徑與功能。'],['HTTP Method','HTTP 方法','例如 GET、POST、PUT、DELETE，用來表示 API 操作類型。'],['Bearer Token','Bearer 權杖','常見 API 驗證方式，將存取 Token 放在 Authorization Header。'],['OpenAPI','API 描述規格','用標準格式描述 API 路徑、參數與回應。']],
+  'integrations':[['Connector','連接器','負責 Cyble 與外部系統交換資料的整合元件。'],['SIEM','資安資訊與事件管理','集中收集與分析安全日誌、事件與警示的平台。'],['SOAR','資安協作與自動化平台','Security Orchestration, Automation and Response，用來自動化事件處理流程。']],
+  'profile-settings':[['2FA','雙因素驗證','登入時除了密碼外，再要求第二種驗證因子。'],['Profile Picture','個人頭像','使用者帳號在平台中顯示的圖片。'],['Account Details','帳號資訊','Email、帳號狀態等與登入身分相關的資訊。']],
+  'configurations-hub':[['Bucket','關鍵字分類容器','用來把不同 Keywords 依品牌、子公司或用途分組。'],['Keyword','監控關鍵字','要在外部情報來源中持續搜尋與比對的字詞。'],['Suppression Rule','抑制規則','用來排除不需持續顯示或追蹤的特定結果。']],
+  'user-management':[['Assigned Role','指派角色','目前套用到使用者的權限角色。'],['Temporary Password','暫時密碼','新帳號第一次登入前使用的初始密碼。'],['EULA Accepted','已接受使用者授權協議','表示使用者是否已接受 End User License Agreement。']],
+  'company-management':[['Engagement Type','合作類型','表示公司與平台服務或 MSSP 管理模式的關係分類。'],['Data Residency','資料所在地','資料儲存或處理所屬的地理區域。'],['Asset Utilization','資產使用量','顯示 Keyword、User、Report 等授權額度的使用情況。'],['One Wallet','共用點數錢包','集中管理 Blaze 等功能使用的點數。']],
+  'alert-settings':[['Default Severity','預設嚴重度','服務產生警示時套用的預設等級。'],['Cyble Recommended','Cyble 建議值','平台建議使用的預設嚴重度設定。'],['Paused Alert','已暫停警示','暫時停止特定 Domain 或 Subdomain 的警示產生或處理。']],
+  'notification-settings':[['Frequency','通知頻率','決定通知多久彙整或傳送一次，例如 Real Time、30 Minute、1 Hour。'],['Recipient','收件者','會接收到通知的使用者或聯絡對象。'],['Notification Channel','通知管道','Email、Slack、WhatsApp、SMS 等通知傳送方式。'],['Status Filter','狀態篩選','只針對 Unreviewed、Viewed、Resolved 等特定狀態傳送通知。']],
+  'application-settings':[['Visual Mode','視覺模式','控制系統介面的顏色主題，例如 Dark、Light、Midnight。'],['Cookie','Cookie','網站儲存在瀏覽器中的小型資料，用於登入、偏好、分析等用途。'],['Strictly Necessary','必要 Cookie','網站正常運作與安全所需、通常無法停用的 Cookie。'],['Analytics Cookie','分析 Cookie','用來了解使用方式與效能、協助改善產品的 Cookie。']]
+};
+
+function getTerms(slug,p){
+  const rows=[...(pageTerms[slug]||[]),...(deepGuides[slug]?.concepts||[]).map(x=>[x[0],x[0],x[1]]),...(groupTerms[p.group]||[])];
+  const seen=new Set();
+  return rows.filter(row=>{const key=row[0].toLowerCase();if(seen.has(key))return false;seen.add(key);return true}).slice(0,10)
+}
+
+function termsHtml(slug,p){
+  const rows=getTerms(slug,p);
+  if(!rows.length)return '';
+  return `<h2>專有名詞表格</h2><div class="doc-table terminology-table"><table><thead><tr><th>英文</th><th>建議中文</th><th>白話解釋</th></tr></thead><tbody>${rows.map(row=>`<tr><td><strong>${row[0]}</strong></td><td>${row[1]}</td><td>${row[2]}</td></tr>`).join('')}</tbody></table></div>`
+}
+
 const nav=document.querySelector('#nav');
 const main=document.querySelector('#main');
 const crumb=document.querySelector('#crumb');
@@ -362,13 +492,13 @@ function groupDescription(group){return ({'Dashboard':'管理層與營運視角�
 function detailHtml(slug,p){
   const points=p.points||defaultPoints(p);
   const related=Object.entries(pages).filter(([s,x])=>s!==slug&&x.group===p.group).slice(0,4);
-  return `<article class="doc"><button class="back-link" data-jump="home">← 返回首頁</button><div class="page-head"><div><div class="eyebrow">${p.group.toUpperCase()}</div><h1>${p.title}</h1><p class="lead">${p.en}｜${p.summary}</p></div><div class="page-actions"><a class="demo-btn" href="${pageUrl(p)}" target="_blank" rel="noreferrer">開啟互動 Demo ↗</a></div></div><div class="callout">這個導覽站不取代原平台，而是用來快速理解功能位置、用途與操作順序。需要確認實際互動時，請直接搭配右上角的 Demo 使用。</div><h2>這頁是做什麼？</h2><p>${p.summary}</p><h2>操作重點</h2><ol class="steps">${points.map((x,i)=>`<li><span class="number">${i+1}</span><span>${x}</span></li>`).join('')}</ol>${deepGuideHtml(slug)}<h2>建議你注意</h2><div class="term"><strong>英文名稱</strong><span>${p.en}</span></div><div class="term"><strong>所在分類</strong><span>${p.group}</span></div><div class="term"><strong>適合用在</strong><span>${useCase(p.group)}</span></div><div class="term"><strong>實際操作</strong><span><a class="text-link" href="${pageUrl(p)}" target="_blank" rel="noreferrer">前往此功能的互動 Demo ↗</a></span></div>${related.length?`<h2>同分類功能</h2><div class="feature-grid">${related.map(([s,x])=>`<button class="feature-card" data-jump="${s}"><strong>${x.title}</strong><small>${x.en}</small><p>${x.summary}</p></button>`).join('')}</div>`:''}</article>`
+  return `<article class="doc"><button class="back-link" data-jump="home">← 返回首頁</button><div class="page-head"><div><div class="eyebrow">${p.group.toUpperCase()}</div><h1>${p.title}</h1><p class="lead">${p.en}｜${p.summary}</p></div><div class="page-actions"><a class="demo-btn" href="${pageUrl(p)}" target="_blank" rel="noreferrer">開啟互動 Demo ↗</a></div></div><div class="callout">這個導覽站不取代原平台，而是用來快速理解功能位置、用途與操作順序。需要確認實際互動時，請直接搭配右上角的 Demo 使用。</div><h2>這頁是做什麼？</h2><p>${p.summary}</p><h2>操作重點</h2><ol class="steps">${points.map((x,i)=>`<li><span class="number">${i+1}</span><span>${x}</span></li>`).join('')}</ol>${termsHtml(slug,p)}${deepGuideHtml(slug)}<h2>建議你注意</h2><div class="term"><strong>英文名稱</strong><span>${p.en}</span></div><div class="term"><strong>所在分類</strong><span>${p.group}</span></div><div class="term"><strong>適合用在</strong><span>${useCase(p.group)}</span></div><div class="term"><strong>實際操作</strong><span><a class="text-link" href="${pageUrl(p)}" target="_blank" rel="noreferrer">前往此功能的互動 Demo ↗</a></span></div>${related.length?`<h2>同分類功能</h2><div class="feature-grid">${related.map(([s,x])=>`<button class="feature-card" data-jump="${s}"><strong>${x.title}</strong><small>${x.en}</small><p>${x.summary}</p></button>`).join('')}</div>`:''}</article>`
 }
 
 function deepGuideHtml(slug){
   const g=deepGuides[slug];
   if(!g)return '';
-  return `<section class="deep-guide"><h2>深入理解</h2><p>${g.intro}</p><h3>頁面地圖</h3><div class="deep-section-grid">${g.sections.map(x=>`<article><strong>${x[0]}</strong><p>${x[1]}</p></article>`).join('')}</div><h3>重要名詞</h3><div class="doc-table deep-table"><table><thead><tr><th>名詞</th><th>白話解釋</th></tr></thead><tbody>${g.concepts.map(x=>`<tr><td><strong>${x[0]}</strong></td><td>${x[1]}</td></tr>`).join('')}</tbody></table></div><h3>建議操作流程</h3><ol class="deep-flow">${g.workflow.map((x,i)=>`<li><span>${i+1}</span><p>${x}</p></li>`).join('')}</ol><div class="callout deep-note"><b>實務提醒：</b>${g.note}</div></section>`
+  return `<section class="deep-guide"><h2>深入理解</h2><p>${g.intro}</p><h3>頁面地圖</h3><div class="deep-section-grid">${g.sections.map(x=>`<article><strong>${x[0]}</strong><p>${x[1]}</p></article>`).join('')}</div><h3>建議操作流程</h3><ol class="deep-flow">${g.workflow.map((x,i)=>`<li><span>${i+1}</span><p>${x}</p></li>`).join('')}</ol><div class="callout deep-note"><b>實務提醒：</b>${g.note}</div></section>`
 }
 
 function defaultPoints(p){return [`先確認頁面標題與目前所在的功能分類。`,`使用搜尋、篩選或 Tab 將資料縮小到需要查看的範圍。`,`點擊列表、卡片或詳細項目查看更多內容。`,`需要對照介面時，使用「開啟互動 Demo」進入 ${p.en}。`]}
